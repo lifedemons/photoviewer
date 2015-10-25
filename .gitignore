@@ -1,0 +1,43 @@
+# built application files
+*.apk
+*.ap_
+local.properties
+ant.properties
+hockeyapp/local.properties
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+classes/
+
+# generated files
+avds/
+bin/
+build/
+gen/
+tmp/
+log/**/*
+log
+.settings
+lint.xml
+.DS_Store
+test/.DS_Store
+out/
+
+# InteliJ idea
+.idea/
+*.iml
+
+# Robolectric tests
+test/robolectric/tmp/
+test/robolectric/emma/
+test/robolectric/.gradle/**/*
+.gradle/**/*
+
+# Android tests
+test/android/coverage
+target/
+project.properties
+gen-external-apklibs/

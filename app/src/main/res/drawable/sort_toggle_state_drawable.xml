@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:constantSize="true">
+    <item android:state_checked="true"
+        android:drawable="@drawable/ic_sort_white_desc"/>
+    <item
+        android:drawable="@drawable/ic_sort_white_asc"/>
+</selector>
