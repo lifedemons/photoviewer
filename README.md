@@ -15,7 +15,7 @@ This project has been influenced by:
 
 ***DI:*** RoboGuice/RoboBlender
 
-***Persistency:*** DB: ORMLite, Preferences: Own Prerence DAO 
+***Persistency:*** DB: ORMLite, Preferences: Own PreferenceDAO 
 
 ***Networking:*** Retrofit, Picasso, OkHttp
 
