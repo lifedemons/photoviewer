@@ -13,17 +13,17 @@ This project has been influenced by:
 
 **Technical stack:**
 
-***DI:*** RoboGuice/RoboBlender,
+***DI:*** RoboGuice/RoboBlender
 
-***DB:*** ORMLite,
+***Persistency:*** DB: ORMLite, Preferences: Own Prerence DAO 
 
-***Networking:*** Retrofit, Picasso, OkHttp,
+***Networking:*** Retrofit, Picasso, OkHttp
 
-***Asynchronous programming:*** RxJava,
+***Asynchronous programming:*** RxJava
 
-***UI:*** Design Support Library, AppCompat, RecyclerView,
+***UI:*** Design Support Library, AppCompat, RecyclerView
 
-***Cool sources:*** Retrolambda, Lombok,
+***Cool sources:*** Retrolambda, Lombok
 
 ***Testing:*** Robolectric, Mockito.
 
