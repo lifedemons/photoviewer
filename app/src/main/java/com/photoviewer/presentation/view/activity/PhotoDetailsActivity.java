@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import com.google.inject.Inject;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
@@ -19,7 +20,6 @@ import com.photoviewer.presentation.view.PhotoDetailsView;
 import com.squareup.picasso.Picasso;
 
 import okhttp3.OkHttpClient;
-import roboguice.inject.InjectView;
 
 /**
  * Activity that shows details of a certain photo.
@@ -33,18 +33,13 @@ public class PhotoDetailsActivity extends RoboAppCompatActivity implements Photo
     private PhotoDetailsPresenter mPhotoDetailsPresenter;
 
     //Content Views
-    @InjectView(R.id.cover_image_view)
-    private ImageView mCoverImageView;
-    @InjectView(R.id.title_text_view)
-    private TextView mTitleTextView;
+    @BindView(R.id.cover_image_view) ImageView mCoverImageView;
+    @BindView(R.id.title_text_view) TextView mTitleTextView;
 
     //Data Loading Views
-    @InjectView(R.id.progress_layout)
-    private RelativeLayout mProgressView;
-    @InjectView(R.id.retry_layout)
-    private RelativeLayout mRetryView;
-    @InjectView(R.id.retry_button)
-    private Button mRetryButton;
+    @BindView(R.id.progress_layout) RelativeLayout mProgressView;
+    @BindView(R.id.retry_layout) RelativeLayout mRetryView;
+    @BindView(R.id.retry_button) Button mRetryButton;
 
     private int mPhotoId;
 

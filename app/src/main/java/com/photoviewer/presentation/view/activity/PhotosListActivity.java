@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import butterknife.BindView;
 import com.google.inject.Inject;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
@@ -35,7 +36,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import okhttp3.OkHttpClient;
-import roboguice.inject.InjectView;
 
 public class PhotosListActivity extends RoboAppCompatActivity implements PhotoListView {
 
@@ -45,24 +45,17 @@ public class PhotosListActivity extends RoboAppCompatActivity implements PhotoLi
     private Navigator mNavigator;
 
     //Toolbar Views
-    @InjectView(R.id.toolbar)
-    private Toolbar mToolbar;
-    @InjectView(R.id.last_opened_photo_image_view)
-    private ImageView mLastOpenedImageView;
-    @InjectView(R.id.opened_photo_count_text_view)
-    private TextView mOpenedPhotosCountView;
+    @BindView(R.id.toolbar) Toolbar mToolbar;
+    @BindView(R.id.last_opened_photo_image_view) ImageView mLastOpenedImageView;
+    @BindView(R.id.opened_photo_count_text_view) TextView mOpenedPhotosCountView;
 
     //Content Views
-    @InjectView(R.id.photos_list)
-    private RecyclerView mPhotoListView;
+    @BindView(R.id.photos_list) RecyclerView mPhotoListView;
 
     //Data Loading Views
-    @InjectView(R.id.progress_layout)
-    private RelativeLayout mProgressView;
-    @InjectView(R.id.retry_layout)
-    private RelativeLayout mRetryView;
-    @InjectView(R.id.retry_button)
-    private Button mRetryButton;
+    @BindView(R.id.progress_layout) RelativeLayout mProgressView;
+    @BindView(R.id.retry_layout) RelativeLayout mRetryView;
+    @BindView(R.id.retry_button) Button mRetryButton;
 
     private CheckBox mSortMenuCheckBox;
 

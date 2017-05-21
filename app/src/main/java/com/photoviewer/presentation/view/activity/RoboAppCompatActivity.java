@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import butterknife.ButterKnife;
 import com.google.inject.Key;
 
 import java.util.HashMap;
@@ -109,7 +110,7 @@ public class RoboAppCompatActivity extends AppCompatActivity  implements RoboCon
     @Override
     public void onContentChanged() {
         super.onContentChanged();
-        RoboGuice.getInjector(this).injectViewMembers(this);
+        ButterKnife.bind(this);
         eventManager.fire(new OnContentChangedEvent(this));
     }
 
