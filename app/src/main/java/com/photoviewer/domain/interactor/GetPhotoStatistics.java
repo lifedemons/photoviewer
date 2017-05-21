@@ -1,6 +1,6 @@
 package com.photoviewer.domain.interactor;
 
-import com.photoviewer.data.repository.PhotoStatisticsEntityRepository;
+import com.photoviewer.data.repository.PhotoStatisticsEntityDataSource;
 import com.photoviewer.domain.PhotoStatistics;
 
 import com.photoviewer.presentation.di.modules.RxModule;
@@ -12,7 +12,7 @@ import rx.Scheduler;
 
 @Accessors(prefix = "m") public class GetPhotoStatistics extends UseCase<PhotoStatistics> {
 
-  @Inject PhotoStatisticsEntityRepository mPhotoStatisticsEntityRepository;
+  @Inject PhotoStatisticsEntityDataSource mPhotoStatisticsEntityDataSource;
   @Inject GetPhotoDetails mGetPhotoDetailsUseCase;
 
   @Inject public GetPhotoStatistics(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
@@ -21,7 +21,7 @@ import rx.Scheduler;
   }
 
   @Override protected Observable<PhotoStatistics> buildObservable() {
-    return mPhotoStatisticsEntityRepository.readStatistics().
+    return mPhotoStatisticsEntityDataSource.readStatistics().
         switchMap(photoStatisticsEntity -> {
           mGetPhotoDetailsUseCase.setPhotoId(photoStatisticsEntity.getLastOpenedPhotoId());
           return mGetPhotoDetailsUseCase.buildObservable().map(photo -> {

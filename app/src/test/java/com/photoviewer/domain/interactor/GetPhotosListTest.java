@@ -1,7 +1,7 @@
 package com.photoviewer.domain.interactor;
 
 import com.photoviewer.data.entity.PhotoEntity;
-import com.photoviewer.data.repository.PhotoEntityRepository;
+import com.photoviewer.data.repository.PhotoEntityDataSource;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class GetPhotosListTest {
     private GetPhotosList mGetPhotosList;
 
     @Mock
-    private PhotoEntityRepository mMockPhotoEntityRepository;
+    private PhotoEntityDataSource mMockPhotoEntityDataSource;
     @Mock
     private Scheduler mMockScheduler;
 
@@ -31,7 +31,7 @@ public class GetPhotosListTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mGetPhotosList = new GetPhotosList(mMockScheduler,
-                mMockScheduler, mMockPhotoEntityRepository);
+                mMockScheduler, mMockPhotoEntityDataSource);
     }
 
     @Test
@@ -40,11 +40,11 @@ public class GetPhotosListTest {
             add(new PhotoEntity());
         }};
 
-        given(mMockPhotoEntityRepository.photos()).willReturn(Observable.just(photos));
+        given(mMockPhotoEntityDataSource.photos()).willReturn(Observable.just(photos));
 
         mGetPhotosList.buildObservable();
 
-        verify(mMockPhotoEntityRepository).photos();
+        verify(mMockPhotoEntityDataSource).photos();
         verifyZeroInteractions(mMockScheduler);
     }
 }

@@ -12,13 +12,13 @@ import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 
-public class PhotoEntityRepository implements PhotoRepository {
+public class PhotoEntityDataSource implements PhotoRepository {
 
     private DatabasePhotoEntityStore mDatabasePhotoEntityStore;
     private ServerPhotoEntityStore mServerPhotoEntityStore;
 
     @Inject
-    public PhotoEntityRepository(DatabasePhotoEntityStore databasePhotoEntityStore, ServerPhotoEntityStore serverPhotoEntityStore) {
+    public PhotoEntityDataSource(DatabasePhotoEntityStore databasePhotoEntityStore, ServerPhotoEntityStore serverPhotoEntityStore) {
         mDatabasePhotoEntityStore = databasePhotoEntityStore;
         mServerPhotoEntityStore = serverPhotoEntityStore;
     }

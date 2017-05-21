@@ -1,6 +1,6 @@
 package com.photoviewer.domain.interactor;
 
-import com.photoviewer.data.repository.PhotoEntityRepository;
+import com.photoviewer.data.repository.PhotoEntityDataSource;
 import com.photoviewer.domain.Photo;
 import com.photoviewer.domain.mapper.photo.PhotoEntityToPhoto;
 
@@ -17,19 +17,19 @@ import rx.Scheduler;
 @Accessors(prefix = "m") public class SearchByTitle extends UseCase<List<Photo>> {
 
   @Setter private String mSearchedTitle;
-  private PhotoEntityRepository mPhotoEntityRepository;
+  private PhotoEntityDataSource mPhotoEntityDataSource;
   private final PhotoEntityToPhoto photoTransformer;
 
   @Inject public SearchByTitle(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
       @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler,
-      PhotoEntityRepository photoEntityRepository) {
+      PhotoEntityDataSource photoEntityDataSource) {
     super(executionScheduler, observingScheduler);
-    mPhotoEntityRepository = photoEntityRepository;
+    mPhotoEntityDataSource = photoEntityDataSource;
     photoTransformer = new PhotoEntityToPhoto();
   }
 
   @Override protected Observable<List<Photo>> buildObservable() {
-    return this.mPhotoEntityRepository.searchPhotosByTitle(mSearchedTitle)
+    return this.mPhotoEntityDataSource.searchPhotosByTitle(mSearchedTitle)
         .map(photoTransformer::transform);
   }
 }

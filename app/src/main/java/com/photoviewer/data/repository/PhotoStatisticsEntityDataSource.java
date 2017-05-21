@@ -7,7 +7,7 @@ import com.photoviewer.domain.repository.PhotoStatisticsRepository;
 import javax.inject.Inject;
 import rx.Observable;
 
-public class PhotoStatisticsEntityRepository implements PhotoStatisticsRepository {
+public class PhotoStatisticsEntityDataSource implements PhotoStatisticsRepository {
 
     @Inject PreferencesPhotoStatisticsEntityStore mStatisticsEntityStore;
 

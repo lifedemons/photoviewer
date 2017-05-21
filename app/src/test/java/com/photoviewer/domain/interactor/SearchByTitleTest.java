@@ -2,7 +2,7 @@ package com.photoviewer.domain.interactor;
 
 
 import com.photoviewer.data.entity.PhotoEntity;
-import com.photoviewer.data.repository.PhotoEntityRepository;
+import com.photoviewer.data.repository.PhotoEntityDataSource;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import rx.Observable;
 import rx.Scheduler;
 
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
@@ -27,7 +26,7 @@ public class SearchByTitleTest {
     private SearchByTitle mSearchByTitle;
 
     @Mock
-    private PhotoEntityRepository mMockPhotoEntityRepository;
+    private PhotoEntityDataSource mMockPhotoEntityDataSource;
     @Mock
     private Scheduler mMockScheduler;
 
@@ -35,7 +34,7 @@ public class SearchByTitleTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mSearchByTitle = new SearchByTitle(mMockScheduler,
-                mMockScheduler, mMockPhotoEntityRepository);
+                mMockScheduler, mMockPhotoEntityDataSource);
     }
 
     @Test
@@ -43,13 +42,13 @@ public class SearchByTitleTest {
         List<PhotoEntity> photos = new ArrayList<PhotoEntity>() {{
             add(new PhotoEntity());
         }};
-        given(mMockPhotoEntityRepository.searchPhotosByTitle(FAKE_PHOTO_TITLE)).willReturn(Observable.just(photos));
+        given(mMockPhotoEntityDataSource.searchPhotosByTitle(FAKE_PHOTO_TITLE)).willReturn(Observable.just(photos));
 
         mSearchByTitle.setSearchedTitle(FAKE_PHOTO_TITLE);
         mSearchByTitle.buildObservable();
 
-        verify(mMockPhotoEntityRepository).searchPhotosByTitle(FAKE_PHOTO_TITLE);
-        verifyNoMoreInteractions(mMockPhotoEntityRepository);
+        verify(mMockPhotoEntityDataSource).searchPhotosByTitle(FAKE_PHOTO_TITLE);
+        verifyNoMoreInteractions(mMockPhotoEntityDataSource);
         verifyZeroInteractions(mMockScheduler);
     }
 }

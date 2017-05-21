@@ -1,6 +1,6 @@
 package com.photoviewer.domain.interactor;
 
-import com.photoviewer.data.repository.PhotoEntityRepository;
+import com.photoviewer.data.repository.PhotoEntityDataSource;
 import com.photoviewer.domain.Photo;
 import com.photoviewer.domain.mapper.photo.PhotoEntityToPhoto;
 import com.photoviewer.presentation.di.modules.RxModule;
@@ -16,17 +16,17 @@ import rx.Scheduler;
   @Setter private int mPhotoId;
   private final PhotoEntityToPhoto mPhotoTransformer;
 
-  private PhotoEntityRepository mPhotoEntityRepository;
+  private PhotoEntityDataSource mPhotoEntityDataSource;
 
   @Inject public GetPhotoDetails(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
       @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler,
-      PhotoEntityRepository photoEntityRepository) {
+      PhotoEntityDataSource photoEntityDataSource) {
     super(executionScheduler, observingScheduler);
     mPhotoTransformer = new PhotoEntityToPhoto();
-    mPhotoEntityRepository = photoEntityRepository;
+    mPhotoEntityDataSource = photoEntityDataSource;
   }
 
   @Override protected Observable<Photo> buildObservable() {
-    return this.mPhotoEntityRepository.photo(mPhotoId).map(mPhotoTransformer::transform);
+    return this.mPhotoEntityDataSource.photo(mPhotoId).map(mPhotoTransformer::transform);
   }
 }

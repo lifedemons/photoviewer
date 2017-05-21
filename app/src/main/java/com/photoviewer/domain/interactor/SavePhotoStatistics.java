@@ -1,7 +1,7 @@
 package com.photoviewer.domain.interactor;
 
 import com.photoviewer.data.entity.PhotoStatisticsEntity;
-import com.photoviewer.data.repository.PhotoStatisticsEntityRepository;
+import com.photoviewer.data.repository.PhotoStatisticsEntityDataSource;
 import com.photoviewer.domain.PhotoStatistics;
 import com.photoviewer.domain.mapper.photostatisctics.PhotoStatisticsToPhotoStatisticsEntity;
 
@@ -20,7 +20,7 @@ public class SavePhotoStatistics extends UseCase<Void> {
     @Setter
     private PhotoStatistics mPhotoStatistics;
 
-    @Inject PhotoStatisticsEntityRepository mPhotoStatisticsEntityRepository;
+    @Inject PhotoStatisticsEntityDataSource mPhotoStatisticsEntityDataSource;
 
     @Inject public SavePhotoStatistics(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
         @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler) {
@@ -32,6 +32,6 @@ public class SavePhotoStatistics extends UseCase<Void> {
     @Override
     protected Observable<Void> buildObservable() {
         PhotoStatisticsEntity photoStatisticsEntity = mPhotoStatisticsToPhotoStatisticsEntityTransformer.transform(mPhotoStatistics);
-        return mPhotoStatisticsEntityRepository.updateStatistics(photoStatisticsEntity).map(photoStatisticsEntity1 -> null);
+        return mPhotoStatisticsEntityDataSource.updateStatistics(photoStatisticsEntity).map(photoStatisticsEntity1 -> null);
     }
 }

@@ -1,7 +1,7 @@
 package com.photoviewer.domain.interactor;
 
 import com.photoviewer.data.entity.PhotoEntity;
-import com.photoviewer.data.repository.PhotoEntityRepository;
+import com.photoviewer.data.repository.PhotoEntityDataSource;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class GetPhotoDetailsTest {
     private GetPhotoDetails mGetPhotoDetails;
 
     @Mock
-    private PhotoEntityRepository mMockPhotoEntityRepository;
+    private PhotoEntityDataSource mMockPhotoEntityDataSource;
     @Mock
     private Scheduler mMockScheduler;
 
@@ -31,18 +31,18 @@ public class GetPhotoDetailsTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mGetPhotoDetails = new GetPhotoDetails(mMockScheduler,
-                mMockScheduler, mMockPhotoEntityRepository);
+                mMockScheduler, mMockPhotoEntityDataSource);
     }
 
     @Test
     public void testGetPhotoDetails() {
-        given(mMockPhotoEntityRepository.photo(anyInt())).willReturn(Observable.just(new PhotoEntity()));
+        given(mMockPhotoEntityDataSource.photo(anyInt())).willReturn(Observable.just(new PhotoEntity()));
 
         mGetPhotoDetails.setPhotoId(FAKE_PHOTO_ID);
         mGetPhotoDetails.buildObservable();
 
-        verify(mMockPhotoEntityRepository).photo(FAKE_PHOTO_ID);
-        verifyNoMoreInteractions(mMockPhotoEntityRepository);
+        verify(mMockPhotoEntityDataSource).photo(FAKE_PHOTO_ID);
+        verifyNoMoreInteractions(mMockPhotoEntityDataSource);
         verifyZeroInteractions(mMockScheduler);
     }
 }

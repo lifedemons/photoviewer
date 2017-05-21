@@ -21,11 +21,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-public class PhotoEntityRepositoryTest extends ApplicationTestCase {
+public class PhotoEntityDataSourceTest extends ApplicationTestCase {
 
     private static final int FAKE_PHOTO_ID = 31;
 
-    private PhotoEntityRepository mPhotoEntityRepository;
+    private PhotoEntityDataSource mPhotoEntityDataSource;
 
     @Mock
     private DatabasePhotoEntityStore mMockDatabasePhotoEntityStore;
@@ -39,7 +39,7 @@ public class PhotoEntityRepositoryTest extends ApplicationTestCase {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mPhotoEntityRepository = new PhotoEntityRepository(mMockDatabasePhotoEntityStore, mMockServerPhotoEntityStore);
+        mPhotoEntityDataSource = new PhotoEntityDataSource(mMockDatabasePhotoEntityStore, mMockServerPhotoEntityStore);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class PhotoEntityRepositoryTest extends ApplicationTestCase {
         given(mMockDatabasePhotoEntityStore.queryForAll()).willReturn(Observable.just(new ArrayList<PhotoEntity>()));
         given(mMockServerPhotoEntityStore.photoEntityList()).willReturn(Observable.just(photosList));
 
-        mPhotoEntityRepository.photos().subscribe(new SimpleSubscriber<List<PhotoEntity>>());
+        mPhotoEntityDataSource.photos().subscribe(new SimpleSubscriber<List<PhotoEntity>>());
 
         verify(mMockDatabasePhotoEntityStore).queryForAll();
         verify(mMockServerPhotoEntityStore).photoEntityList();
@@ -63,7 +63,7 @@ public class PhotoEntityRepositoryTest extends ApplicationTestCase {
         given(mMockDatabasePhotoEntityStore.queryForAll()).willReturn(Observable.just(photoEntities));
         given(mMockServerPhotoEntityStore.photoEntityList()).willReturn(Observable.just(photoEntities));
 
-        mPhotoEntityRepository.photos().subscribe();
+        mPhotoEntityDataSource.photos().subscribe();
 
         verify(mMockDatabasePhotoEntityStore).queryForAll();
         verifyZeroInteractions(mMockServerPhotoEntityStore);
@@ -74,7 +74,7 @@ public class PhotoEntityRepositoryTest extends ApplicationTestCase {
         PhotoEntity photoEntity = new PhotoEntity();
         given(mMockDatabasePhotoEntityStore.queryForId(FAKE_PHOTO_ID)).willReturn(Observable.just(photoEntity));
 
-        mPhotoEntityRepository.photo(FAKE_PHOTO_ID).subscribe();
+        mPhotoEntityDataSource.photo(FAKE_PHOTO_ID).subscribe();
 
         verify(mMockDatabasePhotoEntityStore).queryForId(FAKE_PHOTO_ID);
     }
