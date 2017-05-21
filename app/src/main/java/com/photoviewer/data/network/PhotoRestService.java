@@ -10,7 +10,7 @@ import rx.Observable;
 /**
  * RestApi for retrieving data from the network.
  */
-public interface PhotoRestApi {
+public interface PhotoRestService {
 
     /**
      * Retrieves an {@link rx.Observable} which will emit a List of {@link PhotoEntity}.

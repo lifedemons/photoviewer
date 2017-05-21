@@ -1,45 +1,37 @@
 package com.photoviewer.domain.interactor;
 
-import com.google.inject.Inject;
-import com.google.inject.name.Named;
 import com.photoviewer.data.repository.PhotoStatisticsEntityRepository;
 import com.photoviewer.domain.PhotoStatistics;
-import com.photoviewer.presentation.di.modules.ApplicationModule;
 
+import com.photoviewer.presentation.di.modules.RxModule;
+import javax.inject.Inject;
+import javax.inject.Named;
 import lombok.experimental.Accessors;
-import roboguice.inject.ContextSingleton;
 import rx.Observable;
 import rx.Scheduler;
 
-@ContextSingleton
-@Accessors(prefix = "m")
-public class GetPhotoStatistics extends UseCase<PhotoStatistics> {
+@Accessors(prefix = "m") public class GetPhotoStatistics extends UseCase<PhotoStatistics> {
 
-    @Inject
-    private PhotoStatisticsEntityRepository mPhotoStatisticsEntityRepository;
-    @Inject
-    private GetPhotoDetails mGetPhotoDetailsUseCase;
+  @Inject PhotoStatisticsEntityRepository mPhotoStatisticsEntityRepository;
+  @Inject GetPhotoDetails mGetPhotoDetailsUseCase;
 
-    @Inject
-    public GetPhotoStatistics(@Named(ApplicationModule.BINDING_NAMED_SCHEDULER_COMPUTATION) Scheduler executionScheduler,
-                              @Named(ApplicationModule.BINDING_NAMED_SCHEDULER_MAIN_THREAD) Scheduler observingScheduler) {
-        super(executionScheduler, observingScheduler);
-    }
+  @Inject public GetPhotoStatistics(@Named(RxModule.COMPUTATION) Scheduler executionScheduler,
+      @Named(RxModule.MAIN_THREAD) Scheduler observingScheduler) {
+    super(executionScheduler, observingScheduler);
+  }
 
-    @Override
-    protected Observable<PhotoStatistics> buildObservable() {
-        return mPhotoStatisticsEntityRepository.readStatistics().
-                switchMap(photoStatisticsEntity -> {
-                    mGetPhotoDetailsUseCase.setPhotoId(photoStatisticsEntity.getLastOpenedPhotoId());
-                    return mGetPhotoDetailsUseCase.buildObservable()
-                            .map(photo -> {
-                                PhotoStatistics merged = new PhotoStatistics();
+  @Override protected Observable<PhotoStatistics> buildObservable() {
+    return mPhotoStatisticsEntityRepository.readStatistics().
+        switchMap(photoStatisticsEntity -> {
+          mGetPhotoDetailsUseCase.setPhotoId(photoStatisticsEntity.getLastOpenedPhotoId());
+          return mGetPhotoDetailsUseCase.buildObservable().map(photo -> {
+            PhotoStatistics merged = new PhotoStatistics();
 
-                                merged.setLastOpenedPhoto(photo);
-                                merged.setOpenedPhotosCount(photoStatisticsEntity.getOpenedPhotosCount());
+            merged.setLastOpenedPhoto(photo);
+            merged.setOpenedPhotosCount(photoStatisticsEntity.getOpenedPhotosCount());
 
-                                return merged;
-                            });
-                });
-    }
+            return merged;
+          });
+        });
+  }
 }

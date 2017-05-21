@@ -2,7 +2,6 @@ package com.photoviewer.data.repository.datastore;
 
 import android.util.Log;
 
-import com.google.inject.Inject;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -15,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
+import javax.inject.Inject;
 import rx.Observable;
 import rx.Subscriber;
 

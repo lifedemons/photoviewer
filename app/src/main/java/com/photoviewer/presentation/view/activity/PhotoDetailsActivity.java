@@ -9,28 +9,24 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import butterknife.BindView;
-import com.google.inject.Inject;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
 import com.photoviewer.presentation.model.PhotoModel;
 import com.photoviewer.presentation.presenter.PhotoDetailsPresenter;
 import com.photoviewer.presentation.view.PhotoDetailsView;
 import com.squareup.picasso.Picasso;
-
-import okhttp3.OkHttpClient;
+import javax.inject.Inject;
 
 /**
  * Activity that shows details of a certain photo.
  */
-public class PhotoDetailsActivity extends RoboAppCompatActivity implements PhotoDetailsView {
+public class PhotoDetailsActivity extends DiAppCompatActivity implements PhotoDetailsView {
 
     private static final String INTENT_EXTRA_PARAM_PHOTO_ID = "INTENT_PARAM_PHOTO_ID";
     private static final String INSTANCE_STATE_PARAM_PHOTO_ID = "STATE_PARAM_PHOTO_ID";
 
-    @Inject
-    private PhotoDetailsPresenter mPhotoDetailsPresenter;
+    @Inject PhotoDetailsPresenter mPhotoDetailsPresenter;
+    @Inject Picasso mPicasso;
 
     //Content Views
     @BindView(R.id.cover_image_view) ImageView mCoverImageView;
@@ -152,10 +148,7 @@ public class PhotoDetailsActivity extends RoboAppCompatActivity implements Photo
     @Override
     public void renderPhoto(PhotoModel photoModel) {
         if (photoModel != null) {
-            Picasso.Builder builder = new Picasso.Builder(this);
-            Picasso picasso =
-                builder.downloader(new OkHttp3Downloader(new OkHttpClient.Builder().build())).build();
-            picasso.load(photoModel.getUrl())
+            mPicasso.load(photoModel.getUrl())
                     .placeholder(R.drawable.ic_crop_original_black)
                     .error(R.drawable.ic_error_outline_black)
                     .into(mCoverImageView);

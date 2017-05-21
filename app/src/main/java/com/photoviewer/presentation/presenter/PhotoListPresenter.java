@@ -2,7 +2,6 @@ package com.photoviewer.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.google.inject.Inject;
 import com.photoviewer.domain.Photo;
 import com.photoviewer.domain.PhotoStatistics;
 import com.photoviewer.domain.interactor.GetPhotoStatistics;
@@ -21,15 +20,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import roboguice.inject.ContextSingleton;
-
+import javax.inject.Inject;
 
 /**
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@ContextSingleton
 public class PhotoListPresenter extends SimplePresenter {
 
     private PhotoStatisticsModel mPhotoStatisticsModel;

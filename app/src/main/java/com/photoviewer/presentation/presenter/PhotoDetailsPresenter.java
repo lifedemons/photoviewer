@@ -2,21 +2,18 @@ package com.photoviewer.presentation.presenter;
 
 import android.support.annotation.NonNull;
 
-import com.google.inject.Inject;
 import com.photoviewer.domain.Photo;
 import com.photoviewer.domain.interactor.GetPhotoDetails;
 import com.photoviewer.domain.interactor.SimpleSubscriber;
 import com.photoviewer.presentation.mapper.photo.PhotoToPhotoModel;
 import com.photoviewer.presentation.model.PhotoModel;
 import com.photoviewer.presentation.view.PhotoDetailsView;
-
-import roboguice.inject.ContextSingleton;
+import javax.inject.Inject;
 
 /**
  * {@link Presenter} that controls communication between views and models of the presentation
  * layer.
  */
-@ContextSingleton
 public class PhotoDetailsPresenter extends SimplePresenter {
 
     private final GetPhotoDetails mGetPhotoDetailsUseCase;

@@ -1,18 +1,20 @@
 package com.photoviewer.presentation;
 
 import android.app.Application;
-
-import com.photoviewer.presentation.di.modules.ModulesController;
+import com.photoviewer.presentation.di.modules.AppModule;
+import dagger.ObjectGraph;
 
 public class PhotoViewerApplication extends Application {
-
-    private ModulesController mModulesController;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        sObjectGraph = ObjectGraph.create(new AppModule(this));
+    }
 
-        mModulesController = new ModulesController(this);
-        mModulesController.onActivate();
+    private static ObjectGraph sObjectGraph;
+
+    public static ObjectGraph getScopedGraph(Object... modules) {
+        return sObjectGraph.plus(modules);
     }
 }

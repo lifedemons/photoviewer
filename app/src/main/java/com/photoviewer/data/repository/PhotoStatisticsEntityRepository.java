@@ -1,18 +1,15 @@
 package com.photoviewer.data.repository;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.photoviewer.data.entity.PhotoStatisticsEntity;
 import com.photoviewer.data.repository.datastore.PreferencesPhotoStatisticsEntityStore;
 import com.photoviewer.domain.repository.PhotoStatisticsRepository;
 
+import javax.inject.Inject;
 import rx.Observable;
 
-@Singleton
 public class PhotoStatisticsEntityRepository implements PhotoStatisticsRepository {
 
-    @Inject
-    private PreferencesPhotoStatisticsEntityStore mStatisticsEntityStore;
+    @Inject PreferencesPhotoStatisticsEntityStore mStatisticsEntityStore;
 
     @Override
     public Observable<PhotoStatisticsEntity> readStatistics() {

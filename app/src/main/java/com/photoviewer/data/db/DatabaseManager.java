@@ -3,19 +3,17 @@ package com.photoviewer.data.db;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.photoviewer.data.entity.PhotoEntity;
 
 import java.sql.SQLException;
+import javax.inject.Inject;
 
-@Singleton
 public class DatabaseManager {
 
-    public static final String LOG_TAG_DB = "Roundhere:Database";
+    public static final String LOG_TAG_DB = "Photos:Database";
     public static final String DEFAULT_DATABASE_NAME = "photo_viewer";
 
     private final ConnectionSource mConnectionSource;

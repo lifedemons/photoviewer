@@ -8,17 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
 import com.photoviewer.presentation.model.PhotoModel;
 import com.photoviewer.presentation.view.utils.ImageRoundedCornersTransformation;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
 import java.util.Collection;
 import java.util.List;
-import okhttp3.OkHttpClient;
 
 /**
  * Adapter that manages a collection of {@link PhotoModel}.
@@ -27,23 +23,26 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     private final LayoutInflater mLayoutInflater;
     private final Context mContext;
-    private List<PhotoModel> mPhotoModelsList;
+  private final Picasso mPicasso;
+  private List<PhotoModel> mPhotoModelsList;
     private OnItemClickListener mOnItemClickListener;
     private Transformation mImageTransformation;
+
 
     //Highlighting
     private String mTextToHighlight;
     private static final String STRING_PREPARED_HIGHLIGHT_MARKUP = "<font color='red'>%s</font>";
 
-    public PhotoAdapter(Context context, Collection<PhotoModel> photoModelsCollection) {
-        validatePhotosCollection(photoModelsCollection);
-        mContext = context;
-        mLayoutInflater =
-                (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mPhotoModelsList = (List<PhotoModel>) photoModelsCollection;
+  public PhotoAdapter(Context context, Collection<PhotoModel> photoModelsCollection,
+      Picasso picasso) {
+    validatePhotosCollection(photoModelsCollection);
+    mContext = context;
+    mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    mPhotoModelsList = (List<PhotoModel>) photoModelsCollection;
+    mPicasso = picasso;
 
-        setupTransformation();
-    }
+    setupTransformation();
+  }
 
     public void highlightText(String textToHighlight) {
         mTextToHighlight = textToHighlight;
@@ -65,11 +64,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
   @Override public void onBindViewHolder(PhotoViewHolder holder, final int position) {
     final PhotoModel photoModel = mPhotoModelsList.get(position);
     setText(holder.mTextViewTitle, photoModel.getTitle());
-
-    Picasso.Builder builder = new Picasso.Builder(mContext);
-    Picasso picasso =
-        builder.downloader(new OkHttp3Downloader(new OkHttpClient.Builder().build())).build();
-    picasso.load(photoModel.getThumbnailUrl())
+    mPicasso.load(photoModel.getThumbnailUrl())
         .placeholder(R.drawable.ic_crop_original_black)
         .error(R.drawable.ic_error_outline_black)
         .transform(mImageTransformation)

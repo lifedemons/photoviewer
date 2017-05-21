@@ -17,9 +17,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import butterknife.BindView;
-import com.google.inject.Inject;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
 import com.photoviewer.presentation.model.PhotoModel;
@@ -31,18 +29,16 @@ import com.photoviewer.presentation.view.adapter.PhotoAdapter;
 import com.photoviewer.presentation.view.utils.ImageRoundedCornersTransformation;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
+import javax.inject.Inject;
 import okhttp3.OkHttpClient;
 
-public class PhotosListActivity extends RoboAppCompatActivity implements PhotoListView {
+public class PhotosListActivity extends DiAppCompatActivity implements PhotoListView {
 
-    @Inject
-    private PhotoListPresenter mPhotoListPresenter;
-    @Inject
-    private Navigator mNavigator;
+    @Inject PhotoListPresenter mPhotoListPresenter;
+    @Inject Navigator mNavigator;
+    @Inject Picasso mPicasso;
 
     //Toolbar Views
     @BindView(R.id.toolbar) Toolbar mToolbar;
@@ -163,7 +159,7 @@ public class PhotosListActivity extends RoboAppCompatActivity implements PhotoLi
 
         mPhotoListView.setLayoutManager(new LinearLayoutManager(this));
 
-        mPhotosListAdapter = new PhotoAdapter(this, new ArrayList<>());
+        mPhotosListAdapter = new PhotoAdapter(this, new ArrayList<>(), mPicasso);
         mPhotosListAdapter.setOnItemClickListener(onItemClickListener);
         mPhotoListView.setAdapter(mPhotosListAdapter);
 
@@ -247,10 +243,7 @@ public class PhotosListActivity extends RoboAppCompatActivity implements PhotoLi
 
         PhotoModel lastOpenedPhotoModel = photoStatisticsModel.getLastOpenedPhotoModel();
         if (lastOpenedPhotoModel != null) {
-            Picasso.Builder builder = new Picasso.Builder(this);
-            Picasso picasso =
-                builder.downloader(new OkHttp3Downloader(new OkHttpClient.Builder().build())).build();
-            picasso.load(lastOpenedPhotoModel.getThumbnailUrl())
+            mPicasso.load(lastOpenedPhotoModel.getThumbnailUrl())
                     .transform(mImageTransformation)
                     .placeholder(R.drawable.ic_crop_original_black)
                     .error(R.drawable.ic_error_outline_black)

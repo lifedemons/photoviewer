@@ -1,7 +1,5 @@
 package com.photoviewer.data.repository;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 import com.photoviewer.data.entity.PhotoEntity;
 import com.photoviewer.data.repository.datastore.DatabasePhotoEntityStore;
 import com.photoviewer.data.repository.datastore.ServerPhotoEntityStore;
@@ -9,11 +7,11 @@ import com.photoviewer.domain.repository.PhotoRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
 
-@Singleton
 public class PhotoEntityRepository implements PhotoRepository {
 
     private DatabasePhotoEntityStore mDatabasePhotoEntityStore;

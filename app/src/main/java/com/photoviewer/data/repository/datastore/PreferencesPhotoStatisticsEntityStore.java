@@ -2,10 +2,10 @@ package com.photoviewer.data.repository.datastore;
 
 import android.content.Context;
 
-import com.google.inject.Inject;
 import com.photoviewer.data.entity.PhotoStatisticsEntity;
 import com.photoviewer.data.preferences.orm.PreferencesDao;
 
+import javax.inject.Inject;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import rx.Observable;
