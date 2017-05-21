@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.inject.Inject;
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
 import com.photoviewer.presentation.model.PhotoModel;
 import com.photoviewer.presentation.model.PhotoStatisticsModel;
@@ -33,6 +34,7 @@ import com.squareup.picasso.Transformation;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import okhttp3.OkHttpClient;
 import roboguice.inject.InjectView;
 
 public class PhotosListActivity extends RoboAppCompatActivity implements PhotoListView {
@@ -252,8 +254,10 @@ public class PhotosListActivity extends RoboAppCompatActivity implements PhotoLi
 
         PhotoModel lastOpenedPhotoModel = photoStatisticsModel.getLastOpenedPhotoModel();
         if (lastOpenedPhotoModel != null) {
-            Picasso.with(this)
-                    .load(lastOpenedPhotoModel.getThumbnailUrl())
+            Picasso.Builder builder = new Picasso.Builder(this);
+            Picasso picasso =
+                builder.downloader(new OkHttp3Downloader(new OkHttpClient.Builder().build())).build();
+            picasso.load(lastOpenedPhotoModel.getThumbnailUrl())
                     .transform(mImageTransformation)
                     .placeholder(R.drawable.ic_crop_original_black)
                     .error(R.drawable.ic_error_outline_black)

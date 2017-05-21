@@ -4,7 +4,7 @@ import com.photoviewer.data.entity.PhotoEntity;
 
 import java.util.List;
 
-import retrofit.http.GET;
+import retrofit2.http.GET;
 import rx.Observable;
 
 /**
@@ -16,5 +16,5 @@ public interface PhotoRestApi {
      * Retrieves an {@link rx.Observable} which will emit a List of {@link PhotoEntity}.
      */
     @GET("/photos")
-    public Observable<List<PhotoEntity>> photoEntityList();
+    Observable<List<PhotoEntity>> photoEntityList();
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jakewharton.picasso.OkHttp3Downloader;
 import com.photoviewer.R;
 import com.photoviewer.presentation.model.PhotoModel;
 import com.photoviewer.presentation.view.utils.ImageRoundedCornersTransformation;
@@ -17,6 +18,7 @@ import com.squareup.picasso.Transformation;
 
 import java.util.Collection;
 import java.util.List;
+import okhttp3.OkHttpClient;
 
 /**
  * Adapter that manages a collection of {@link PhotoModel}.
@@ -60,24 +62,25 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         return photoViewHolder;
     }
 
-    @Override
-    public void onBindViewHolder(PhotoViewHolder holder, final int position) {
-        final PhotoModel photoModel = mPhotoModelsList.get(position);
-        setText(holder.mTextViewTitle, photoModel.getTitle());
+  @Override public void onBindViewHolder(PhotoViewHolder holder, final int position) {
+    final PhotoModel photoModel = mPhotoModelsList.get(position);
+    setText(holder.mTextViewTitle, photoModel.getTitle());
 
-        Picasso.with(mContext)
-                .load(photoModel.getThumbnailUrl())
-                .placeholder(R.drawable.ic_crop_original_black)
-                .error(R.drawable.ic_error_outline_black)
-                .transform(mImageTransformation)
-                .into(holder.mPhotoImageView);
+    Picasso.Builder builder = new Picasso.Builder(mContext);
+    Picasso picasso =
+        builder.downloader(new OkHttp3Downloader(new OkHttpClient.Builder().build())).build();
+    picasso.load(photoModel.getThumbnailUrl())
+        .placeholder(R.drawable.ic_crop_original_black)
+        .error(R.drawable.ic_error_outline_black)
+        .transform(mImageTransformation)
+        .into(holder.mPhotoImageView);
 
-        holder.itemView.setOnClickListener(v -> {
-            if (PhotoAdapter.this.mOnItemClickListener != null) {
-                PhotoAdapter.this.mOnItemClickListener.onItemClicked(photoModel);
-            }
-        });
-    }
+    holder.itemView.setOnClickListener(v -> {
+      if (PhotoAdapter.this.mOnItemClickListener != null) {
+        PhotoAdapter.this.mOnItemClickListener.onItemClicked(photoModel);
+      }
+    });
+  }
 
     private void setText(TextView textView, String original) {
         if (mTextToHighlight != null && !mTextToHighlight.isEmpty()) {
