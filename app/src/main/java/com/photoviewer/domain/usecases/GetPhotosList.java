@@ -23,7 +23,7 @@ public class GetPhotosList extends UseCase<List<Photo>> {
     mPhotoEntityDataSource = photoEntityDataSource;
   }
 
-  @Override protected Observable<List<Photo>> buildObservable() {
+  @Override protected Observable<List<Photo>> call() {
     return mPhotoEntityDataSource.photos().map(mPhotoTransformer::transform);
   }
 }

@@ -28,7 +28,7 @@ import rx.Scheduler;
     photoTransformer = new PhotoEntityToPhoto();
   }
 
-  @Override protected Observable<List<Photo>> buildObservable() {
+  @Override protected Observable<List<Photo>> call() {
     return this.mPhotoEntityDataSource.searchPhotosByTitle(mSearchedTitle)
         .map(photoTransformer::transform);
   }

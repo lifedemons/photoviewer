@@ -18,11 +18,11 @@ public abstract class UseCase<T> {
         this.observingScheduler = observingScheduler;
     }
 
-    protected abstract Observable<T> buildObservable();
+    protected abstract Observable<T> call();
 
     @SuppressWarnings("unchecked")
     public void execute(Subscriber UseCaseSubscriber) {
-        this.subscription = this.buildObservable()
+        this.subscription = this.call()
                 .subscribeOn(executionScheduler)
                 .observeOn(observingScheduler)
                 .subscribe(UseCaseSubscriber);

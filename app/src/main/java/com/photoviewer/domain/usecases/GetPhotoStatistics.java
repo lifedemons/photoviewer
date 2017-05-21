@@ -20,11 +20,11 @@ import rx.Scheduler;
     super(executionScheduler, observingScheduler);
   }
 
-  @Override protected Observable<PhotoStatistics> buildObservable() {
+  @Override protected Observable<PhotoStatistics> call() {
     return mPhotoStatisticsEntityDataSource.readStatistics().
         switchMap(photoStatisticsEntity -> {
           mGetPhotoDetailsUseCase.setPhotoId(photoStatisticsEntity.getLastOpenedPhotoId());
-          return mGetPhotoDetailsUseCase.buildObservable().map(photo -> {
+          return mGetPhotoDetailsUseCase.call().map(photo -> {
             PhotoStatistics merged = new PhotoStatistics();
 
             merged.setLastOpenedPhoto(photo);

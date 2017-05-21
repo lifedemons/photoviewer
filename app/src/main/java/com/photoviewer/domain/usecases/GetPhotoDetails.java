@@ -26,7 +26,7 @@ import rx.Scheduler;
     mPhotoEntityDataSource = photoEntityDataSource;
   }
 
-  @Override protected Observable<Photo> buildObservable() {
+  @Override protected Observable<Photo> call() {
     return this.mPhotoEntityDataSource.photo(mPhotoId).map(mPhotoTransformer::transform);
   }
 }

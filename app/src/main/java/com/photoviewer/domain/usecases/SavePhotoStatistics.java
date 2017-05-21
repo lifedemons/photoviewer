@@ -30,7 +30,7 @@ public class SavePhotoStatistics extends UseCase<Void> {
     }
 
     @Override
-    protected Observable<Void> buildObservable() {
+    protected Observable<Void> call() {
         PhotoStatisticsEntity photoStatisticsEntity = mPhotoStatisticsToPhotoStatisticsEntityTransformer.transform(mPhotoStatistics);
         return mPhotoStatisticsEntityDataSource.updateStatistics(photoStatisticsEntity).map(photoStatisticsEntity1 -> null);
     }

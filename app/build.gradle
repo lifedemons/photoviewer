@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
 
 android {
@@ -45,6 +47,7 @@ dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
   provided 'org.projectlombok:lombok:1.16.8'
+  compile "org.jetbrains.kotlin:kotlin-stdlib:1.1.2-3"
 
   // Dependency Injection
   compile "com.squareup.dagger:dagger:1.2.5"
@@ -85,4 +88,9 @@ dependencies {
   testCompile 'junit:junit:4.12'
   testCompile 'org.mockito:mockito-core:2.6.5'
   testCompile 'org.assertj:assertj-core:1.7.1'
+
+  // Kotlin Unit Tests
+  testCompile 'org.jetbrains.kotlin:kotlin-test:1.1.2-3'
+  testCompile 'org.jetbrains.kotlin:kotlin-test-junit:1.1.2-3'
+  testCompile 'com.nhaarman:mockito-kotlin:1.2.0'
 }
