@@ -1,6 +1,5 @@
 package com.photoviewer.data.repository;
 
-import com.photoviewer.ApplicationTestCase;
 import com.photoviewer.data.entity.PhotoEntity;
 import com.photoviewer.data.repository.datastore.DatabasePhotoEntityStore;
 import com.photoviewer.data.repository.datastore.ServerPhotoEntityStore;
@@ -21,7 +20,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-public class PhotoEntityDataSourceTest extends ApplicationTestCase {
+public class PhotoEntityDataSourceTest {
 
     private static final int FAKE_PHOTO_ID = 31;
 
