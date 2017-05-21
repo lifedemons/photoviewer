@@ -5,7 +5,7 @@ import com.photoviewer.ApplicationTestCase;
 import com.photoviewer.data.db.DatabaseManager;
 import com.photoviewer.data.entity.PhotoEntity;
 import com.photoviewer.data.repository.datastore.DatabasePhotoEntityStore;
-import com.photoviewer.domain.interactor.SimpleSubscriber;
+import com.photoviewer.domain.usecases.SimpleSubscriber;
 
 import junit.framework.Assert;
 

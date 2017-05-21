@@ -5,7 +5,7 @@ import com.photoviewer.data.entity.PhotoEntity;
 import com.photoviewer.data.repository.datastore.DatabasePhotoEntityStore;
 import com.photoviewer.data.repository.datastore.ServerPhotoEntityStore;
 import com.photoviewer.domain.Photo;
-import com.photoviewer.domain.interactor.SimpleSubscriber;
+import com.photoviewer.domain.usecases.SimpleSubscriber;
 
 import org.junit.Before;
 import org.junit.Test;

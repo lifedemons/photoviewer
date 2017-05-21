@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 
 import com.photoviewer.domain.Photo;
 import com.photoviewer.domain.PhotoStatistics;
-import com.photoviewer.domain.interactor.GetPhotoStatistics;
-import com.photoviewer.domain.interactor.GetPhotosList;
-import com.photoviewer.domain.interactor.SavePhotoStatistics;
-import com.photoviewer.domain.interactor.SearchByTitle;
-import com.photoviewer.domain.interactor.SimpleSubscriber;
+import com.photoviewer.domain.usecases.GetPhotoStatistics;
+import com.photoviewer.domain.usecases.GetPhotosList;
+import com.photoviewer.domain.usecases.SavePhotoStatistics;
+import com.photoviewer.domain.usecases.SearchByTitle;
+import com.photoviewer.domain.usecases.SimpleSubscriber;
 import com.photoviewer.presentation.mapper.photo.PhotoToPhotoModel;
 import com.photoviewer.presentation.mapper.photostatistics.PhotoStatisticsModelToPhotoStatistics;
 import com.photoviewer.presentation.mapper.photostatistics.PhotoStatisticsToPhotoStatisticsModel;

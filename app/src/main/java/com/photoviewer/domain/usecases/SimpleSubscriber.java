@@ -1,4 +1,4 @@
-package com.photoviewer.domain.interactor;
+package com.photoviewer.domain.usecases;
 
 /**
  * Default subscriber base class to be used whenever you want default error handling.

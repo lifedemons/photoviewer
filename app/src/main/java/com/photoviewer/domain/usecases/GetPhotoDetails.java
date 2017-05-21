@@ -1,4 +1,4 @@
-package com.photoviewer.domain.interactor;
+package com.photoviewer.domain.usecases;
 
 import com.photoviewer.data.repository.PhotoEntityDataSource;
 import com.photoviewer.domain.Photo;

@@ -3,8 +3,8 @@ package com.photoviewer.presentation.presenter;
 import android.support.annotation.NonNull;
 
 import com.photoviewer.domain.Photo;
-import com.photoviewer.domain.interactor.GetPhotoDetails;
-import com.photoviewer.domain.interactor.SimpleSubscriber;
+import com.photoviewer.domain.usecases.GetPhotoDetails;
+import com.photoviewer.domain.usecases.SimpleSubscriber;
 import com.photoviewer.presentation.mapper.photo.PhotoToPhotoModel;
 import com.photoviewer.presentation.model.PhotoModel;
 import com.photoviewer.presentation.view.PhotoDetailsView;

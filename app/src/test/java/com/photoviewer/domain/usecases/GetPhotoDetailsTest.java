@@ -1,4 +1,4 @@
-package com.photoviewer.domain.interactor;
+package com.photoviewer.domain.usecases;
 
 import com.photoviewer.data.entity.PhotoEntity;
 import com.photoviewer.data.repository.PhotoEntityDataSource;
@@ -8,19 +8,19 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import rx.Observable;
 import rx.Scheduler;
+import rx.Observable;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.verifyZeroInteractions;
 
-public class GetPhotosListTest {
+public class GetPhotoDetailsTest {
+    private static final int FAKE_PHOTO_ID = 123;
 
-    private GetPhotosList mGetPhotosList;
+    private GetPhotoDetails mGetPhotoDetails;
 
     @Mock
     private PhotoEntityDataSource mMockPhotoEntityDataSource;
@@ -30,23 +30,19 @@ public class GetPhotosListTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mGetPhotosList = new GetPhotosList(mMockScheduler,
+        mGetPhotoDetails = new GetPhotoDetails(mMockScheduler,
                 mMockScheduler, mMockPhotoEntityDataSource);
     }
 
     @Test
-    public void testGetPhotosList() {
-        List<PhotoEntity> photos = new ArrayList<PhotoEntity>() {{
-            add(new PhotoEntity());
-        }};
+    public void testGetPhotoDetails() {
+        given(mMockPhotoEntityDataSource.photo(anyInt())).willReturn(Observable.just(new PhotoEntity()));
 
-        given(mMockPhotoEntityDataSource.photos()).willReturn(Observable.just(photos));
+        mGetPhotoDetails.setPhotoId(FAKE_PHOTO_ID);
+        mGetPhotoDetails.buildObservable();
 
-        mGetPhotosList.buildObservable();
-
-        verify(mMockPhotoEntityDataSource).photos();
+        verify(mMockPhotoEntityDataSource).photo(FAKE_PHOTO_ID);
+        verifyNoMoreInteractions(mMockPhotoEntityDataSource);
         verifyZeroInteractions(mMockScheduler);
     }
 }
-
-
