@@ -27,10 +27,10 @@ This project has been influenced by:
 
 ***Cool sources:*** Retrolambda, Lombok
 
-***Testing:*** Mockito
+***Unit Testing:*** Mockito
+
+***Functional testing:*** Cucumber + PageObject via Espresso
 
 **2. Next steps:**
 
-a. Functional testing: Cucumber + Espresso
-
-b. Integrate with Flickr + more functions
+a. Integrate with Flickr + more functions

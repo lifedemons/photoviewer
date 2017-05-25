@@ -28,8 +28,14 @@ android {
     targetSdkVersion 25
     versionCode 1
     versionName "1.0"
+    testInstrumentationRunner "com.photoviewer.cucumber.CucumberTestRunner"
   }
   buildTypes {
+    debug {
+      minifyEnabled false
+      buildConfigField "String", "CUCUMBER_TAGS", "\"${getCucumberTags()}\""
+    }
+
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -50,11 +56,6 @@ android {
     exclude 'META-INF/LICENSE.txt'
     exclude 'META-INF/NOTICE.txt'
     exclude 'META-INF/services/javax.annotation.processing.Processor'
-  }
-
-  dexOptions {
-    maxProcessCount 4
-    javaMaxHeapSize "2g"
   }
 }
 
@@ -135,4 +136,16 @@ dependencies {
     exclude module: 'support-v4'
     exclude module: 'design'
   }
+
+  androidTestCompile ("com.jakewharton.espresso:okhttp3-idling-resource:1.0.0") {
+    exclude module: 'okio'
+    exclude module: 'support-annotations'
+    exclude module: 'okhttp'
+  }
+}
+
+/**
+ *  Read Cucumber tags from command line like: ./gradlew connectedAndroidTest -Dtags="@functional-scenarios,@nougat"*/
+def getCucumberTags() {
+  return project.hasProperty("tags") ? project.getProperties().get("tags") : ""
 }
