@@ -3,6 +3,21 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'me.tatarka.retrolambda'
 
+// Libraries versions
+def lib = [lombok        : "1.16.8",
+           kotlin        : "1.1.2-3",
+           dagger        : "1.2.5",
+           butterknife   : "8.6.0",
+           googleSupport : "25.3.1",
+           rxJava        : "1.2.1",
+           ormlite       : "5.0",
+           okhttp3       : "3.8.0",
+           retrofit2     : "2.3.0",
+           picasso       : "2.5.2",
+           testSupport   : "0.5",
+           cucumber      : "1.2.2",
+           espresso      : "2.2.2"]
+
 android {
   compileSdkVersion 25
   buildToolsVersion '25.0.2'
@@ -46,43 +61,43 @@ android {
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
 
-  provided 'org.projectlombok:lombok:1.16.8'
-  compile "org.jetbrains.kotlin:kotlin-stdlib:1.1.2-3"
+  provided "org.projectlombok:lombok:${lib.lombok}"
+  compile "org.jetbrains.kotlin:kotlin-stdlib:${lib.kotlin}"
 
   // Dependency Injection
-  compile "com.squareup.dagger:dagger:1.2.5"
-  provided "com.squareup.dagger:dagger-compiler:1.2.5"
+  compile "com.squareup.dagger:dagger:${lib.dagger}"
+  provided "com.squareup.dagger:dagger-compiler:${lib.dagger}"
 
   // View Injection
-  compile 'com.jakewharton:butterknife:8.6.0'
-  annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+  compile "com.jakewharton:butterknife:${lib.butterknife}"
+  annotationProcessor "com.jakewharton:butterknife-compiler:${lib.butterknife}"
 
   // Google libraries
-  compile "com.android.support:support-annotations:25.3.1"
-  compile 'com.android.support:appcompat-v7:25.3.1'
-  compile 'com.android.support:design:25.3.1'
-  compile 'com.android.support:recyclerview-v7:25.3.1'
+  compile "com.android.support:support-annotations:${lib.googleSupport}"
+  compile "com.android.support:appcompat-v7:${lib.googleSupport}"
+  compile "com.android.support:design:${lib.googleSupport}"
+  compile "com.android.support:recyclerview-v7:${lib.googleSupport}"
 
   // ReactiveX
-  compile 'io.reactivex:rxandroid:1.2.1'
+  compile "io.reactivex:rxandroid:${lib.rxJava}"
 
   // Database
-  compile 'com.j256.ormlite:ormlite-core:5.0'
-  compile 'com.j256.ormlite:ormlite-android:5.0'
+  compile "com.j256.ormlite:ormlite-core:${lib.ormlite}"
+  compile "com.j256.ormlite:ormlite-android:${lib.ormlite}"
 
   // OkHttp
-  compile "com.squareup.okhttp3:okhttp-urlconnection:3.8.0"
-  compile "com.squareup.okhttp3:okhttp:3.8.0"
-  compile "com.squareup.okhttp3:logging-interceptor:3.8.0"
+  compile "com.squareup.okhttp3:okhttp-urlconnection:${lib.okhttp3}"
+  compile "com.squareup.okhttp3:okhttp:${lib.okhttp3}"
+  compile "com.squareup.okhttp3:logging-interceptor:${lib.okhttp3}"
 
   // Retrofit
-  compile "com.squareup.retrofit2:retrofit:2.3.0"
-  compile "com.squareup.retrofit2:adapter-rxjava:2.3.0"
-  compile "com.squareup.retrofit2:converter-gson:2.3.0"
+  compile "com.squareup.retrofit2:retrofit:${lib.retrofit2}"
+  compile "com.squareup.retrofit2:adapter-rxjava:${lib.retrofit2}"
+  compile "com.squareup.retrofit2:converter-gson:${lib.retrofit2}"
 
   // Image Loader
-  compile 'com.squareup.picasso:picasso:2.5.2'
-  compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0'
+  compile "com.squareup.picasso:picasso:${lib.picasso}"
+  compile "com.jakewharton.picasso:picasso2-okhttp3-downloader:1.1.0"
 
   // Unit test
   testCompile 'junit:junit:4.12'
@@ -90,7 +105,34 @@ dependencies {
   testCompile 'org.assertj:assertj-core:1.7.1'
 
   // Kotlin Unit Tests
-  testCompile 'org.jetbrains.kotlin:kotlin-test:1.1.2-3'
-  testCompile 'org.jetbrains.kotlin:kotlin-test-junit:1.1.2-3'
-  testCompile 'com.nhaarman:mockito-kotlin:1.2.0'
+  testCompile "org.jetbrains.kotlin:kotlin-test:${lib.kotlin}"
+  testCompile "org.jetbrains.kotlin:kotlin-test-junit:${lib.kotlin}"
+  testCompile "com.nhaarman:mockito-kotlin:1.2.0"
+
+  // Android Tests
+  androidTestCompile("com.android.support.test:runner:${lib.testSupport}") {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile("com.android.support.test:rules:${lib.testSupport}") {
+    exclude module: 'support-annotations'
+  }
+
+  // Cucumber
+  androidTestCompile "info.cukes:cucumber-android:${lib.cucumber}"
+  androidTestCompile "info.cukes:cucumber-picocontainer:${lib.cucumber}"
+
+  // Espresso
+  androidTestCompile("com.android.support.test.espresso:espresso-core:${lib.espresso}") {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile ("com.android.support.test.espresso:espresso-idling-resource:${lib.espresso}") {
+    exclude module: 'support-annotations'
+  }
+  androidTestCompile ("com.android.support.test.espresso:espresso-contrib:${lib.espresso}") {
+    exclude module: 'support-annotations'
+    exclude module: 'appcompat-v7'
+    exclude module: 'recyclerview-v7'
+    exclude module: 'support-v4'
+    exclude module: 'design'
+  }
 }
