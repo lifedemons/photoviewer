@@ -13,7 +13,9 @@ This project has been influenced by:
 
 **Technical stack:**
 
-***DI:*** RoboGuice/RoboBlender
+***Languages:*** Java/Kotlin(for Unit tests)
+
+***DI:*** Dagger/Butterknife
 
 ***Persistency:*** DB: ORMLite, Preferences: Own PreferenceDAO 
 
@@ -25,7 +27,7 @@ This project has been influenced by:
 
 ***Cool sources:*** Retrolambda, Lombok
 
-***Testing:*** Robolectric, Mockito.
+***Testing:*** Mockito
 
 **2. Next steps:**
 
